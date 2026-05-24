@@ -2819,14 +2819,16 @@ function updateL3StepDisplay() {
     if (l3State.stepResults[key]) box.classList.add(l3State.stepResults[key]);
   });
   // Mark the current step active
-  const currentBox = $('stepWord' === '' ? '' :
+  const currentBoxId =
     l3State.step === 'word' ? 'stepWord' :
-    l3State.step === 'phrase' ? 'stepPhrase' : 'stepSentence'
-  );
-  $(currentBox).classList.add('active');
+    l3State.step === 'phrase' ? 'stepPhrase' : 'stepSentence';
+  const currentBox = $(currentBoxId);
+  // If this step was previously taught/done (shouldn't happen normally) clear that first
+  currentBox.classList.remove('done','taught');
+  currentBox.classList.add('active');
 
   // Reset dots in active box and color in used
-  const dots = $(currentBox).querySelectorAll('.attempt-dot');
+  const dots = currentBox.querySelectorAll('.attempt-dot');
   dots.forEach(d => d.classList.remove('used'));
   for (let i = 0; i < l3State.attemptsUsed && i < dots.length; i++) {
     dots[i].classList.add('used');

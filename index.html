@@ -841,6 +841,221 @@
   .unsupported.show { display: block; }
 
 
+
+  /* ============ LEVEL PICKER (HOME) ============ */
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .level-card {
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 22px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 6px 0 0 var(--ink);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .level-card:active { transform: translateY(2px); box-shadow: 0 4px 0 0 var(--ink); }
+  .level-card .lv-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--target);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .level-card .lv-title {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .level-card .lv-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .level-card .lv-meta {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+  .level-card.lv-1 { background: linear-gradient(135deg, #FFF8EE 0%, #FFE0D2 100%); }
+  .level-card.lv-2 { background: linear-gradient(135deg, #FFF4DD 0%, #FFD9B8 100%); }
+  .level-card.lv-3 { background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%); }
+
+  /* ============ LEVEL 2 — WORD DISPLAY ============ */
+  .word-display-stage {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 28px;
+    padding: 40px 32px;
+    box-shadow: 8px 8px 0 0 rgba(27, 27, 47, 0.92);
+    text-align: center;
+  }
+  .word-display {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(40px, 8vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 20px 0 30px;
+    color: var(--ink);
+    word-break: break-word;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .word-display.correct { color: var(--success); animation: pop-in 0.5s ease; }
+  .word-display.wrong { animation: shake 0.35s ease; }
+  .word-display.taught { color: var(--ink-soft); }
+  .word-attempts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .word-attempts .attempt-dot {
+    width: 12px;
+    height: 12px;
+  }
+  .word-category-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ============ LEVEL 3 — SENTENCE STACK ============ */
+  .sentence-stage {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 28px;
+    padding: 28px 24px;
+    box-shadow: 8px 8px 0 0 rgba(27, 27, 47, 0.92);
+  }
+  .step-box {
+    border: 3px solid var(--idle);
+    border-radius: 18px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+    background: var(--paper);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    opacity: 0.4;
+  }
+  .step-box:last-child { margin-bottom: 0; }
+  .step-box.active {
+    border-color: var(--target);
+    background: var(--target-soft);
+    opacity: 1;
+    box-shadow: 0 0 0 6px var(--target-glow);
+  }
+  .step-box.done {
+    border-color: var(--success);
+    background: var(--success-soft);
+    opacity: 1;
+  }
+  .step-box.taught {
+    border-color: var(--ink-soft);
+    background: #FFF4DD;
+    opacity: 1;
+  }
+  .step-box.shake { animation: shake 0.35s ease; }
+  .step-label {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .step-text {
+    font-family: var(--display);
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .step-box.word .step-text { font-size: clamp(28px, 5vw, 38px); }
+  .step-box.phrase .step-text { font-size: clamp(22px, 4vw, 28px); }
+  .step-box.sentence .step-text { font-size: clamp(18px, 3vw, 22px); }
+  .step-box.done::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    background: var(--success);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 20px;
+    border: 2.5px solid white;
+  }
+  .step-box.taught::after {
+    content: '👂';
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 2.5px solid var(--ink);
+  }
+  .step-box.active .attempt-dots-inline {
+    display: flex;
+    gap: 7px;
+    margin-top: 10px;
+    justify-content: flex-end;
+  }
+  .attempt-dots-inline {
+    display: none;
+  }
+  .step-box.active .attempt-dots-inline .attempt-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    border: 1.5px solid var(--ink);
+  }
+  .step-box.active .attempt-dots-inline .attempt-dot.used { background: var(--error); }
+
+  @media (max-width: 600px) {
+    .word-display-stage { padding: 28px 20px; }
+    .sentence-stage { padding: 20px 16px; }
+    .step-box { padding: 14px 16px; }
+    .level-card { padding: 16px; }
+    .level-card .lv-title { font-size: 19px; }
+  }
+
   /* ============ TABLET TUNING ============ */
   @media (min-width: 601px) and (max-width: 1200px) {
     body { padding: 14px 14px 30px; }
@@ -924,8 +1139,129 @@
 
   <button class="stats-link" onclick="showStats()">📊 See progress</button>
 
-  <h2 class="section-title">Pick a sound to practice</h2>
+  <h2 class="section-title">Pick a level</h2>
+  <div class="level-grid">
+    <div class="level-card lv-1" onclick="showLevel1()">
+      <div class="lv-num">Level 1</div>
+      <div class="lv-title">Sound pairs</div>
+      <div class="lv-desc">Two cards, two sounds. Hear the difference, then say each one right.</div>
+      <div class="lv-meta">8 sound categories · with pictures</div>
+    </div>
+    <div class="level-card lv-2" onclick="showLevel2()">
+      <div class="lv-num">Level 2</div>
+      <div class="lv-title">Longer words</div>
+      <div class="lv-desc">Big words to read out loud. Build the habit in any context.</div>
+      <div class="lv-meta">5 word lists · text only</div>
+    </div>
+    <div class="level-card lv-3" onclick="startLevel3()">
+      <div class="lv-num">Level 3</div>
+      <div class="lv-title">Word → Phrase → Sentence</div>
+      <div class="lv-desc">Build from a single word up to a whole sentence.</div>
+      <div class="lv-meta">13 sets · auto-advance</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEVEL 1 SCREEN (sound pairs grid) ============ -->
+<section class="screen" id="level1Screen">
+  <div class="progress-wrap">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div style="flex:1;font-family:var(--display);font-weight:800;font-size:18px;text-align:center;">Level 1 · Sound pairs</div>
+    <div style="width:40px;"></div>
+  </div>
+  <h2 class="section-title" style="margin-top:8px;">Pick a sound to practice</h2>
   <div class="pair-grid" id="pairGrid"></div>
+</section>
+
+<!-- ============ LEVEL 2 SCREEN (long word lists) ============ -->
+<section class="screen" id="level2Screen">
+  <div class="progress-wrap">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div style="flex:1;font-family:var(--display);font-weight:800;font-size:18px;text-align:center;">Level 2 · Longer words</div>
+    <div style="width:40px;"></div>
+  </div>
+  <h2 class="section-title" style="margin-top:8px;">Pick a word list</h2>
+  <div class="pair-grid" id="level2Grid"></div>
+</section>
+
+<!-- ============ LEVEL 2 PRACTICE SCREEN ============ -->
+<section class="screen" id="wordPracticeScreen">
+  <div class="progress-wrap">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="progress-track"><div class="progress-fill" id="wordProgressFill"></div></div>
+    <div class="progress-text"><span id="wordIdx">1</span>/<span id="wordTotal">1</span></div>
+  </div>
+
+  <main class="word-display-stage">
+    <div class="word-category-label" id="wordCatLabel"></div>
+    <div class="word-display" id="wordText">word</div>
+    <div class="word-attempts">
+      <div class="attempt-dot"></div>
+      <div class="attempt-dot"></div>
+      <div class="attempt-dot"></div>
+    </div>
+
+    <div class="mic-area">
+      <button class="mic-btn" id="wordMicBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+      </button>
+      <div class="mic-hint" id="wordMicHint">Tap and say the word</div>
+    </div>
+
+    <div class="feedback" id="wordFeedback"></div>
+  </main>
+</section>
+
+<!-- ============ LEVEL 3 PRACTICE SCREEN ============ -->
+<section class="screen" id="sentencePracticeScreen">
+  <div class="progress-wrap">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="progress-track"><div class="progress-fill" id="sentenceProgressFill"></div></div>
+    <div class="progress-text"><span id="sentenceIdx">1</span>/<span id="sentenceTotal">1</span></div>
+  </div>
+
+  <main class="sentence-stage">
+    <div class="instruction" style="text-align:center;margin-bottom:14px;">Say each step</div>
+
+    <div class="step-box word" id="stepWord">
+      <div class="step-label">Word</div>
+      <div class="step-text" id="stepWordText">word</div>
+      <div class="attempt-dots-inline">
+        <div class="attempt-dot"></div>
+        <div class="attempt-dot"></div>
+        <div class="attempt-dot"></div>
+      </div>
+    </div>
+
+    <div class="step-box phrase" id="stepPhrase">
+      <div class="step-label">Phrase</div>
+      <div class="step-text" id="stepPhraseText">phrase</div>
+      <div class="attempt-dots-inline">
+        <div class="attempt-dot"></div>
+        <div class="attempt-dot"></div>
+        <div class="attempt-dot"></div>
+      </div>
+    </div>
+
+    <div class="step-box sentence" id="stepSentence">
+      <div class="step-label">Sentence</div>
+      <div class="step-text" id="stepSentenceText">sentence</div>
+      <div class="attempt-dots-inline">
+        <div class="attempt-dot"></div>
+        <div class="attempt-dot"></div>
+        <div class="attempt-dot"></div>
+      </div>
+    </div>
+
+    <div class="mic-area" style="margin-top:18px;">
+      <button class="mic-btn" id="sentenceMicBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+      </button>
+      <div class="mic-hint" id="sentenceMicHint">Tap and say it</div>
+    </div>
+
+    <div class="feedback" id="sentenceFeedback"></div>
+  </main>
 </section>
 
 <!-- ============ PRACTICE SCREEN ============ -->
@@ -1191,6 +1527,67 @@ const CATEGORIES = [
     { target: { word: 'fame',  sound: '/f/', card: '73_f_fame'  }, distractor: { word: 'frame',  sound: '/fr/', card: '74_fr_frame'  } },
   ]},
 ];
+
+/* ============================================================
+   LEVEL 2 — Longer words (no pictures)
+   ============================================================ */
+const LEVEL2_CATEGORIES = [
+  {
+    id: 'l2-l-and-r',
+    title: '/l/ and /r/ mixed',
+    sounds: ['/l/', '/r/'],
+    words: ['electronic','industrial','laboratory','literature','libraries','practical','curriculum','behavioral','privileges','translator','ultrasound','fraudulent','remarkably','numerical','brilliant','referrals','paranormal','triangular']
+  },
+  {
+    id: 'l2-ly-endings',
+    title: '-ly endings',
+    sounds: ['/l/'],
+    words: ['generally','virtually','perfectly','basically','literally','scholarly','purposely','unearthly','unworldly','complexly','currently','earnestly','violently','probably','directly','secondly','monopoly','terribly']
+  },
+  {
+    id: 'l2-medial-r',
+    title: 'medial /r/',
+    sounds: ['/r/'],
+    words: ['auditorium','irresistible','necessarily','respiratory','verification','voluntarily','interruption','memorial','librarian','macaroni','category','authority','decoration','secondary','security','memorize','encourage','embarrass']
+  },
+  {
+    id: 'l2-ro-or',
+    title: 'RO and OR',
+    sounds: ['/r/'],
+    words: ['romantic','robotic','roadside','rosemary','royalty','robust','roasted','rowboat','rosacea','unicorn','porcupine','normal','afford','accordion','important','morning','scorpion','skateboard']
+  },
+  {
+    id: 'l2-thr',
+    title: 'THR blend',
+    sounds: ['/thr/'],
+    words: ['through','enthrall','thrashing','enthrone','brethren','threaten','overthrow','arthritis','threshold','throttle','thriving','dysarthria','birthright','forthright','thrifting','anthrax','thrive','thrombus']
+  },
+];
+
+/* ============================================================
+   LEVEL 3 — Word → Phrase → Sentence
+   ============================================================ */
+const LEVEL3_SETS = [
+  { word: 'rhinoceros',  phrase: 'big rhinoceros',     sentence: 'I saw a big rhinoceros at the zoo.' },
+  { word: 'residential', phrase: 'residential street', sentence: 'I live on a residential street.' },
+  { word: 'reputation',  phrase: 'bad reputation',     sentence: 'Criminals have a bad reputation.' },
+  { word: 'raccoon',     phrase: 'hungry raccoon',     sentence: 'A hungry raccoon ate my trash.' },
+  { word: 'groceries',   phrase: 'many groceries',     sentence: 'My mom bought many groceries.' },
+  { word: 'breakfast',   phrase: 'breakfast food',     sentence: 'I like to eat breakfast food.' },
+  { word: 'crayon',      phrase: 'purple crayon',      sentence: 'She drew with a purple crayon.' },
+  { word: 'pretzel',     phrase: 'soft pretzel',       sentence: 'I am craving a soft pretzel.' },
+  { word: 'frame',       phrase: 'picture frame',      sentence: 'My dad broke the picture frame.' },
+  { word: 'treasure',    phrase: 'treasure map',       sentence: 'He followed the treasure map.' },
+  { word: 'dream',       phrase: 'scary dream',        sentence: 'The scary dream woke me up.' },
+  { word: 'sprinkles',   phrase: 'rainbow sprinkles',  sentence: 'I bought rainbow sprinkles today.' },
+  { word: 'rainbow',     phrase: 'bright rainbow',     sentence: 'A bright rainbow appeared after the rain.' },
+];
+
+const LEVEL3_INFO = {
+  id: 'l3-word-phrase-sentence',
+  title: 'Word → Phrase → Sentence',
+  sounds: ['/r/'],
+};
 
 /* ============================================================
    HOMOPHONE / VARIANT MAP for the recognizer
@@ -1483,36 +1880,6 @@ function renderHome() {
   // Streak
   $('streakCount').textContent = state.currentProgress.currentStreak;
 
-  // Sound pair grid
-  const grid = $('pairGrid');
-  grid.innerHTML = '';
-  CATEGORIES.forEach(cat => {
-    const total = cat.pairs.length;
-    // Compute category accuracy from soundStats
-    const ts = state.currentProgress.soundStats[cat.targetSound] || { correct: 0, total: 0 };
-    const ds = state.currentProgress.soundStats[cat.distractorSound] || { correct: 0, total: 0 };
-    const combinedTotal = ts.total + ds.total;
-    const combinedCorrect = ts.correct + ds.correct;
-    const acc = combinedTotal > 0 ? Math.round((combinedCorrect / combinedTotal) * 100) : 0;
-
-    const card = document.createElement('div');
-    card.className = 'pair-card';
-    card.onclick = () => startCategory(cat);
-    card.innerHTML = `
-      <div class="pair-sounds">
-        <span class="target-sound">${cat.targetSound}</span>
-        <span class="vs">vs</span>
-        <span>${cat.distractorSound}</span>
-      </div>
-      <div class="pair-count">${total} pair${total === 1 ? '' : 's'}</div>
-      <div class="pair-accuracy">
-        <div class="pair-acc-bar"><div class="pair-acc-fill" style="width:${acc}%"></div></div>
-        <div class="pair-acc-text">${combinedTotal === 0 ? 'new' : acc + '%'}</div>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-
   showScreen('homeScreen');
 }
 
@@ -1800,11 +2167,74 @@ function matchesWord(transcript, expected) {
   if (!transcript) return false;
   const normalized = normalizeText(transcript);
   if (!normalized) return false;
+
+  // Multi-word phrase: use fuzzy phrase matching
+  const expectedNorm = normalizeText(expected);
+  const expectedTokens = expectedNorm.split(/\s+/).filter(Boolean);
+
+  if (expectedTokens.length >= 2) {
+    return matchesPhrase(normalized, expectedTokens);
+  }
+
+  // Single-word match (Level 1 + Level 2)
   const variants = ACCEPTED_VARIANTS[expected] || [expected];
   if (variants.includes(normalized)) return true;
   const tokens = normalized.split(/\s+/);
   for (const v of variants) if (tokens.includes(v)) return true;
+  // For longer single words (Level 2), also allow a "contains" match
+  // so "she said macaroni" still counts as "macaroni"
+  if (expected.length >= 5 && tokens.includes(expected.toLowerCase())) return true;
   return false;
+}
+
+function matchesPhrase(heardText, expectedTokens) {
+  // Allow matching if at least 75% of expected tokens are present in order (with up to 2 tokens skipped)
+  const heardTokens = heardText.split(/\s+/).filter(Boolean);
+  const requiredMatches = Math.ceil(expectedTokens.length * 0.75);
+  let matched = 0;
+  let hi = 0;
+  for (const et of expectedTokens) {
+    // Look ahead in heardTokens for this expected token
+    let found = false;
+    for (let k = hi; k < heardTokens.length; k++) {
+      if (tokensMatch(heardTokens[k], et)) {
+        hi = k + 1;
+        matched++;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      // Skip allowed
+    }
+  }
+  return matched >= requiredMatches;
+}
+
+function tokensMatch(heard, expected) {
+  if (heard === expected) return true;
+  // Allow minor variant matches via ACCEPTED_VARIANTS
+  const variants = ACCEPTED_VARIANTS[expected] || [expected];
+  if (variants.includes(heard)) return true;
+  // Levenshtein-ish tolerance for long words (allow 1 edit)
+  if (expected.length >= 6 && levenshtein(heard, expected) <= 1) return true;
+  return false;
+}
+
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  if (!a.length || !b.length) return Math.max(a.length, b.length);
+  const m = a.length, n = b.length;
+  const dp = Array.from({length: m+1}, () => new Array(n+1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      const cost = a[i-1] === b[j-1] ? 0 : 1;
+      dp[i][j] = Math.min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+cost);
+    }
+  }
+  return dp[m][n];
 }
 function checkAllAlternatives(event, currentWord, otherWord, startIdx) {
   let bestHeard = '';
@@ -1879,9 +2309,11 @@ function startPersistentRecognition() {
     recognitionActive = true;
     // If user tapped mic during the restart window, begin the attempt now
     if (pendingAttemptStart) {
-      const { currentWord, otherWord } = pendingAttemptStart;
+      const p = pendingAttemptStart;
       pendingAttemptStart = null;
-      beginAttempt(currentWord, otherWord);
+      if (p.__level === 2) beginL2Attempt(p.currentWord);
+      else if (p.__level === 3) beginL3Attempt(p.currentWord);
+      else beginAttempt(p.currentWord, p.otherWord);
     }
   };
 
@@ -1893,13 +2325,20 @@ function startPersistentRecognition() {
 
 function finishAttempt(outcome, heard) {
   if (!attemptListening) return;
-  const { currentWord, otherWord } = attemptContext;
+  const ctx = attemptContext;
+  const { currentWord, otherWord, __level } = ctx;
   attemptListening = false;
   attemptContext = null;
   state.isListening = false;
   if (state._attemptTimer) { clearTimeout(state._attemptTimer); state._attemptTimer = null; }
   $('micBtn').classList.remove('listening');
-  handleResult(outcome, heard, currentWord, otherWord);
+  if (__level === 2) {
+    handleL2Result(outcome, heard, currentWord);
+  } else if (__level === 3) {
+    handleL3Result(outcome, heard, currentWord);
+  } else {
+    handleResult(outcome, heard, currentWord, otherWord);
+  }
 }
 
 /* ============================================================
@@ -2086,6 +2525,472 @@ async function requestMicOnce() {
   }
 }
 $('enableMicBtn').addEventListener('click', requestMicOnce);
+
+
+
+/* ============================================================
+   LEVEL ROUTING
+   ============================================================ */
+function showLevel1() {
+  // The existing renderHome() built the pair grid into #pairGrid which is now inside #level1Screen
+  buildSoundPairGrid();
+  showScreen('level1Screen');
+}
+function buildSoundPairGrid() {
+  if (!state.currentProgress) return;
+  const grid = $('pairGrid');
+  grid.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const total = cat.pairs.length;
+    const ts = state.currentProgress.soundStats[cat.targetSound] || { correct: 0, total: 0 };
+    const ds = state.currentProgress.soundStats[cat.distractorSound] || { correct: 0, total: 0 };
+    const combinedTotal = ts.total + ds.total;
+    const combinedCorrect = ts.correct + ds.correct;
+    const acc = combinedTotal > 0 ? Math.round((combinedCorrect / combinedTotal) * 100) : 0;
+    const card = document.createElement('div');
+    card.className = 'pair-card';
+    card.onclick = () => startCategory(cat);
+    card.innerHTML = `
+      <div class="pair-sounds">
+        <span class="target-sound">${cat.targetSound}</span>
+        <span class="vs">vs</span>
+        <span>${cat.distractorSound}</span>
+      </div>
+      <div class="pair-count">${total} pair${total === 1 ? '' : 's'}</div>
+      <div class="pair-accuracy">
+        <div class="pair-acc-bar"><div class="pair-acc-fill" style="width:${acc}%"></div></div>
+        <div class="pair-acc-text">${combinedTotal === 0 ? 'new' : acc + '%'}</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function showLevel2() {
+  buildLevel2Grid();
+  showScreen('level2Screen');
+}
+function buildLevel2Grid() {
+  if (!state.currentProgress) return;
+  const grid = $('level2Grid');
+  grid.innerHTML = '';
+  LEVEL2_CATEGORIES.forEach(cat => {
+    // Show progress: count attempts on each sound in cat.sounds
+    let total = 0, correct = 0;
+    cat.sounds.forEach(s => {
+      const ss = state.currentProgress.soundStats[s];
+      if (ss) { total += ss.total; correct += ss.correct; }
+    });
+    const acc = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const card = document.createElement('div');
+    card.className = 'pair-card';
+    card.onclick = () => startLevel2Category(cat);
+    card.innerHTML = `
+      <div class="pair-sounds" style="font-size:22px;">
+        <span class="target-sound">${cat.title}</span>
+      </div>
+      <div class="pair-count">${cat.words.length} word${cat.words.length === 1 ? '' : 's'}</div>
+      <div class="pair-accuracy">
+        <div class="pair-acc-bar"><div class="pair-acc-fill" style="width:${acc}%"></div></div>
+        <div class="pair-acc-text">${total === 0 ? 'new' : acc + '%'}</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   LEVEL 2 — PRACTICE FLOW (single word at a time)
+   ============================================================ */
+const l2State = {
+  category: null,
+  shuffledWords: [],
+  index: 0,
+  attemptsUsed: 0,
+  isLocked: false,
+};
+
+function startLevel2Category(cat) {
+  l2State.category = cat;
+  l2State.shuffledWords = shuffle([...cat.words]);
+  l2State.index = 0;
+  l2State.attemptsUsed = 0;
+  l2State.isLocked = false;
+  $('wordTotal').textContent = l2State.shuffledWords.length;
+  showScreen('wordPracticeScreen');
+  renderL2Word();
+}
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function renderL2Word() {
+  const word = l2State.shuffledWords[l2State.index];
+  $('wordText').textContent = word;
+  $('wordText').className = 'word-display';
+  $('wordCatLabel').textContent = l2State.category.title;
+  $('wordIdx').textContent = l2State.index + 1;
+  $('wordProgressFill').style.width = `${(l2State.index / l2State.shuffledWords.length) * 100}%`;
+  l2State.attemptsUsed = 0;
+  resetL2Dots();
+  $('wordMicHint').textContent = 'Tap and say the word';
+  $('wordFeedback').classList.remove('show');
+  $('wordMicBtn').disabled = false;
+  l2State.isLocked = false;
+}
+function resetL2Dots() {
+  document.querySelectorAll('#wordPracticeScreen .word-attempts .attempt-dot').forEach(d => d.classList.remove('used'));
+}
+
+$('wordMicBtn').addEventListener('click', () => {
+  if (l2State.isLocked) return;
+  if (!speechSupported) {
+    alert('Speech recognition needs Chrome, Edge, or Safari.');
+    return;
+  }
+  if (state.isListening) {
+    attemptListening = false;
+    state.isListening = false;
+    $('wordMicBtn').classList.remove('listening');
+    return;
+  }
+  startL2Listening();
+});
+
+function startL2Listening() {
+  if (state.isListening || attemptListening) return;
+  const word = l2State.shuffledWords[l2State.index];
+
+  if (recognition && recognitionActive) {
+    try { recognition.stop(); } catch(e) {}
+    pendingAttemptStart = { currentWord: word, otherWord: '', __level: 2 };
+    return;
+  }
+  beginL2Attempt(word);
+}
+
+function beginL2Attempt(word) {
+  attemptListening = true;
+  attemptContext = { currentWord: word, otherWord: '', startResultIdx: 0, __level: 2 };
+  state.isListening = true;
+  $('wordMicBtn').classList.add('listening');
+  $('wordMicHint').textContent = '🎙️ Listening...';
+  $('wordFeedback').classList.remove('show');
+
+  if (state._attemptTimer) clearTimeout(state._attemptTimer);
+  state._attemptTimer = setTimeout(() => {
+    if (attemptListening) finishAttempt('unclear', '');
+  }, 4500); // a bit longer for longer words
+}
+
+function handleL2Result(outcome, heard, currentWord) {
+  $('wordMicBtn').classList.remove('listening');
+  if (outcome === 'target') {
+    // Correct
+    recordAttempt(getL2RecordSound(), true);
+    l2OnSuccess(currentWord);
+  } else {
+    l2State.attemptsUsed++;
+    const dots = document.querySelectorAll('#wordPracticeScreen .word-attempts .attempt-dot');
+    if (l2State.attemptsUsed - 1 < dots.length) dots[l2State.attemptsUsed - 1].classList.add('used');
+    if (l2State.attemptsUsed >= 3) {
+      recordAttempt(getL2RecordSound(), false);
+      l2OnThreeFailed(currentWord, heard);
+    } else {
+      recordAttempt(getL2RecordSound(), false);
+      l2OnAttemptFailed(currentWord, heard);
+    }
+  }
+}
+
+function getL2RecordSound() {
+  // For aggregate stats, record under the first sound of the category
+  return l2State.category.sounds[0] || '/r/';
+}
+
+function l2OnSuccess(word) {
+  $('wordText').classList.add('correct');
+  showWordFeedback('success', `✨ Great! You said <em>${word}</em>`);
+  $('wordMicHint').textContent = '';
+  $('wordMicBtn').disabled = true;
+  l2State.isLocked = true;
+  spawnStar();
+  setTimeout(advanceL2, 800);
+}
+
+function l2OnAttemptFailed(currentWord, heard) {
+  $('wordText').classList.add('wrong');
+  setTimeout(() => $('wordText').classList.remove('wrong'), 350);
+  const attemptsLeft = 3 - l2State.attemptsUsed;
+  let msg;
+  if (heard) msg = `I heard "<em>${heard.trim().toLowerCase()}</em>" — try <em>${currentWord}</em>`;
+  else msg = `Didn't quite catch that — try <em>${currentWord}</em>`;
+  showWordFeedback('error', msg);
+  $('wordMicHint').textContent = `${attemptsLeft} ${attemptsLeft === 1 ? 'try' : 'tries'} left`;
+}
+
+async function l2OnThreeFailed(currentWord, heard) {
+  l2State.isLocked = true;
+  $('wordMicBtn').disabled = true;
+  $('wordText').classList.add('taught');
+  showWordFeedback('neutral', `Let me say it: <em>${currentWord}</em>`);
+  $('wordMicHint').textContent = '👂 Listen...';
+  await new Promise(r => setTimeout(r, 400));
+  await speakWord(currentWord);
+  await new Promise(r => setTimeout(r, 300));
+  advanceL2();
+}
+
+function advanceL2() {
+  l2State.index++;
+  if (l2State.index >= l2State.shuffledWords.length) {
+    completeL2();
+    return;
+  }
+  renderL2Word();
+}
+
+function completeL2() {
+  $('wordProgressFill').style.width = '100%';
+  const today = todayKey();
+  const todayData = state.currentProgress.days[today] || { words: 0 };
+  const remaining = Math.max(0, DAILY_GOAL - todayData.words);
+  $('completeTitle').textContent = pickRandom(['Awesome!','You did it!','Beautiful!','Way to go!']);
+  if (remaining === 0) {
+    $('completeMsg').innerHTML = `You finished <em>${l2State.category.title}</em>!<br>Daily goal complete 🎉`;
+  } else {
+    $('completeMsg').innerHTML = `You finished <em>${l2State.category.title}</em>!<br>${remaining} more word${remaining === 1 ? '' : 's'} to hit today's goal.`;
+  }
+  $('completeOverlay').dataset.lastLevel = 'L2';
+  setTimeout(() => $('completeOverlay').classList.add('show'), 300);
+}
+
+function showWordFeedback(type, htmlStr) {
+  const fb = $('wordFeedback');
+  fb.className = `feedback show ${type}`;
+  fb.innerHTML = htmlStr;
+}
+
+/* ============================================================
+   LEVEL 3 — Word → Phrase → Sentence
+   ============================================================ */
+const l3State = {
+  shuffledSets: [],
+  index: 0,
+  step: 'word',   // 'word' | 'phrase' | 'sentence'
+  attemptsUsed: 0,
+  isLocked: false,
+  stepResults: { word: null, phrase: null, sentence: null }, // 'done' | 'taught' | null
+};
+
+function startLevel3() {
+  l3State.shuffledSets = shuffle([...LEVEL3_SETS]);
+  l3State.index = 0;
+  l3State.step = 'word';
+  l3State.attemptsUsed = 0;
+  l3State.stepResults = { word: null, phrase: null, sentence: null };
+  $('sentenceTotal').textContent = l3State.shuffledSets.length;
+  showScreen('sentencePracticeScreen');
+  renderL3Set();
+}
+
+function renderL3Set() {
+  const set = l3State.shuffledSets[l3State.index];
+  $('stepWordText').textContent = set.word;
+  $('stepPhraseText').textContent = set.phrase;
+  $('stepSentenceText').textContent = set.sentence;
+  $('sentenceIdx').textContent = l3State.index + 1;
+  $('sentenceProgressFill').style.width = `${(l3State.index / l3State.shuffledSets.length) * 100}%`;
+  l3State.step = 'word';
+  l3State.attemptsUsed = 0;
+  l3State.stepResults = { word: null, phrase: null, sentence: null };
+  updateL3StepDisplay();
+}
+
+function updateL3StepDisplay() {
+  ['stepWord','stepPhrase','stepSentence'].forEach((id, idx) => {
+    const box = $(id);
+    box.classList.remove('active','done','taught','shake');
+    const key = ['word','phrase','sentence'][idx];
+    if (l3State.stepResults[key]) box.classList.add(l3State.stepResults[key]);
+  });
+  // Mark the current step active
+  const currentBox = $('stepWord' === '' ? '' :
+    l3State.step === 'word' ? 'stepWord' :
+    l3State.step === 'phrase' ? 'stepPhrase' : 'stepSentence'
+  );
+  $(currentBox).classList.add('active');
+
+  // Reset dots in active box and color in used
+  const dots = $(currentBox).querySelectorAll('.attempt-dot');
+  dots.forEach(d => d.classList.remove('used'));
+  for (let i = 0; i < l3State.attemptsUsed && i < dots.length; i++) {
+    dots[i].classList.add('used');
+  }
+
+  $('sentenceMicHint').textContent = 'Tap and say it';
+  $('sentenceFeedback').classList.remove('show');
+  $('sentenceMicBtn').disabled = false;
+}
+
+$('sentenceMicBtn').addEventListener('click', () => {
+  if (l3State.isLocked) return;
+  if (!speechSupported) {
+    alert('Speech recognition needs Chrome, Edge, or Safari.');
+    return;
+  }
+  if (state.isListening) {
+    attemptListening = false;
+    state.isListening = false;
+    $('sentenceMicBtn').classList.remove('listening');
+    return;
+  }
+  startL3Listening();
+});
+
+function startL3Listening() {
+  if (state.isListening || attemptListening) return;
+  const set = l3State.shuffledSets[l3State.index];
+  const target = l3State.step === 'word' ? set.word :
+                 l3State.step === 'phrase' ? set.phrase : set.sentence;
+
+  if (recognition && recognitionActive) {
+    try { recognition.stop(); } catch(e) {}
+    pendingAttemptStart = { currentWord: target, otherWord: '', __level: 3 };
+    return;
+  }
+  beginL3Attempt(target);
+}
+
+function beginL3Attempt(target) {
+  attemptListening = true;
+  attemptContext = { currentWord: target, otherWord: '', startResultIdx: 0, __level: 3 };
+  state.isListening = true;
+  $('sentenceMicBtn').classList.add('listening');
+  $('sentenceMicHint').textContent = '🎙️ Listening...';
+  $('sentenceFeedback').classList.remove('show');
+
+  if (state._attemptTimer) clearTimeout(state._attemptTimer);
+  // Longer timeout for sentences
+  const timeoutMs = l3State.step === 'sentence' ? 8000 : l3State.step === 'phrase' ? 5000 : 4000;
+  state._attemptTimer = setTimeout(() => {
+    if (attemptListening) finishAttempt('unclear', '');
+  }, timeoutMs);
+}
+
+function handleL3Result(outcome, heard, currentWord) {
+  $('sentenceMicBtn').classList.remove('listening');
+  if (outcome === 'target') {
+    recordAttempt('/r/', true); // L3 is primarily /r/ practice
+    l3OnSuccess();
+  } else {
+    l3State.attemptsUsed++;
+    const currentBox = l3State.step === 'word' ? 'stepWord' :
+                       l3State.step === 'phrase' ? 'stepPhrase' : 'stepSentence';
+    const dots = $(currentBox).querySelectorAll('.attempt-dot');
+    if (l3State.attemptsUsed - 1 < dots.length) dots[l3State.attemptsUsed - 1].classList.add('used');
+    if (l3State.attemptsUsed >= 3) {
+      recordAttempt('/r/', false);
+      l3OnThreeFailed(currentWord);
+    } else {
+      recordAttempt('/r/', false);
+      l3OnAttemptFailed(currentWord, heard);
+    }
+  }
+}
+
+function l3OnSuccess() {
+  l3State.stepResults[l3State.step] = 'done';
+  showSentenceFeedback('success', `✨ Nailed it!`);
+  $('sentenceMicHint').textContent = '';
+  $('sentenceMicBtn').disabled = true;
+  l3State.isLocked = true;
+  spawnStar();
+  setTimeout(advanceL3Step, 700);
+}
+
+function l3OnAttemptFailed(currentWord, heard) {
+  const currentBox = l3State.step === 'word' ? 'stepWord' :
+                     l3State.step === 'phrase' ? 'stepPhrase' : 'stepSentence';
+  $(currentBox).classList.add('shake');
+  setTimeout(() => $(currentBox).classList.remove('shake'), 350);
+  const attemptsLeft = 3 - l3State.attemptsUsed;
+  let msg;
+  if (heard) msg = `I heard "<em>${heard.trim().toLowerCase()}</em>" — try again`;
+  else msg = `Didn't quite catch that — try again`;
+  showSentenceFeedback('error', msg);
+  $('sentenceMicHint').textContent = `${attemptsLeft} ${attemptsLeft === 1 ? 'try' : 'tries'} left`;
+}
+
+async function l3OnThreeFailed(currentWord) {
+  l3State.isLocked = true;
+  $('sentenceMicBtn').disabled = true;
+  l3State.stepResults[l3State.step] = 'taught';
+  updateL3StepBoxesForTaught();
+  showSentenceFeedback('neutral', `Let me say it`);
+  $('sentenceMicHint').textContent = '👂 Listen...';
+  await new Promise(r => setTimeout(r, 400));
+  await speakWord(currentWord);
+  await new Promise(r => setTimeout(r, 300));
+  advanceL3Step();
+}
+
+function updateL3StepBoxesForTaught() {
+  ['stepWord','stepPhrase','stepSentence'].forEach((id, idx) => {
+    const box = $(id);
+    const key = ['word','phrase','sentence'][idx];
+    if (l3State.stepResults[key]) {
+      box.classList.remove('active');
+      box.classList.add(l3State.stepResults[key]);
+    }
+  });
+}
+
+function advanceL3Step() {
+  l3State.attemptsUsed = 0;
+  l3State.isLocked = false;
+  if (l3State.step === 'word') {
+    l3State.step = 'phrase';
+    updateL3StepDisplay();
+  } else if (l3State.step === 'phrase') {
+    l3State.step = 'sentence';
+    updateL3StepDisplay();
+  } else {
+    // Set complete — move to next set
+    l3State.index++;
+    if (l3State.index >= l3State.shuffledSets.length) {
+      completeL3();
+    } else {
+      renderL3Set();
+    }
+  }
+}
+
+function completeL3() {
+  $('sentenceProgressFill').style.width = '100%';
+  const today = todayKey();
+  const todayData = state.currentProgress.days[today] || { words: 0 };
+  const remaining = Math.max(0, DAILY_GOAL - todayData.words);
+  $('completeTitle').textContent = pickRandom(['You did it!','Amazing!','Beautiful work!','Bravo!']);
+  if (remaining === 0) {
+    $('completeMsg').innerHTML = `You finished all ${l3State.shuffledSets.length} sets!<br>Daily goal complete 🎉`;
+  } else {
+    $('completeMsg').innerHTML = `You finished all ${l3State.shuffledSets.length} sets!<br>${remaining} more word${remaining === 1 ? '' : 's'} to hit today's goal.`;
+  }
+  $('completeOverlay').dataset.lastLevel = 'L3';
+  setTimeout(() => $('completeOverlay').classList.add('show'), 300);
+}
+
+function showSentenceFeedback(type, htmlStr) {
+  const fb = $('sentenceFeedback');
+  fb.className = `feedback show ${type}`;
+  fb.innerHTML = htmlStr;
+}
+
 
 /* ============================================================
    INIT

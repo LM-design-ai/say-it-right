@@ -1639,6 +1639,92 @@ const ACCEPTED_VARIANTS = {
   fame: ['fame'], frame: ['frame'],
 };
 
+/* ============================================================
+   PER-PAIR VARIANTS — keyed by "{categoryId}|{word}"
+   These take precedence over the global ACCEPTED_VARIANTS when
+   we're in a Level 1 minimal-pair context, because variants must
+   not collide with the OTHER word in the same pair (e.g., 'three'
+   can accept 'tree' as a variant, but only when the distractor
+   isn't 'tree').
+   ============================================================ */
+const PER_PAIR_VARIANTS = {
+  'th-f|thin': ['thin', 'tin', 'thing', 'think', 'sin', 'shin', 'thinned'],
+  'th-f|fin': ['fin', 'phin', 'finn', 'fan'],
+  'th-f|three': ['three', 'tree', 'thee', 'the'],
+  'th-f|free': ['free', 'frees'],
+  'th-f|thirst': ['thirst', 'thursday'],
+  'th-f|first': ['first', 'forced', 'firs'],
+  'th-f|thrill': ['thrill', 'trill', 'drill', 'till', 'real'],
+  'th-f|frill': ['frill', 'frills'],
+  'l-y|lamb': ['lamb', 'lam', 'ham', 'lamp', 'lab', 'land'],
+  'l-y|yam': ['yam', 'yams'],
+  'l-y|lawn': ['lawn', 'lon', 'long', 'on', 'gone'],
+  'l-y|yawn': ['yawn', 'yon'],
+  'l-y|less': ['less', 'list', 'lust', 'lest', 'last', 'les'],
+  'l-y|yes': ['yes', 'yeah', 'yet'],
+  'l-w|lead': ['lead', 'leed', 'led', 'leid', 'leads'],
+  'l-w|weed': ['weed', 'wead', 'weeds', 'wheat'],
+  'l-w|light': ['light', 'lite', 'flight', 'like', 'right'],
+  'l-w|white': ['white', 'wight', 'whites'],
+  'l-w|link': ['link', 'lync', 'len', 'ink', 'lynx'],
+  'l-w|wink': ['wink', 'winks'],
+  'l-w|lake': ['lake', 'lakes'],
+  'l-w|wake': ['wake', 'wakes', 'woke'],
+  'r-w|run': ['run', 'ron', 'wren', 'runs', 'ren'],
+  'r-w|one': ['one', 'won', 'wan', 'wun', 'wand'],
+  'r-w|ring': ['ring', 'wring', 'rings', 'wrong'],
+  'r-w|wing': ['wing', 'wings', 'when'],
+  'r-w|red': ['red', 'read', 'reed', 'rad'],
+  'r-w|wed': ['wed', 'wedge', 'whed', 'weds'],
+  'r-w|rake': ['rake', 'rakes', 'rack', 'wreck'],
+  'r-w|wake': ['wake', 'wakes', 'woke'],
+  'r-l|ramp': ['ramp', 'rams', 'rumps', 'rom', 'rump'],
+  'r-l|lamp': ['lamp', 'lump', 'amp', 'lampe'],
+  'r-l|race': ['race', 'raise', 'res'],
+  'r-l|lace': ['lace', 'lays', 'less', 'lays'],
+  'r-l|reef': ['reef', 'reeve', 'rief'],
+  'r-l|leaf': ['leaf', 'lief', 'leave', 'left', 'leafs'],
+  'r-l|rock': ['rock', 'rocks', 'rok', 'roc'],
+  'r-l|lock': ['lock', 'lac', 'log', 'lok'],
+  'r-l|rain': ['rain', 'reign', 'rein', 'ren', 'wren'],
+  'r-l|lane': ['lane', 'lain', 'lanes', 'lain'],
+  'r-l|ram': ['ram', 'rams', 'wrom'],
+  'r-l|lamb': ['lamb', 'lam', 'ham', 'lamp', 'lab', 'land'],
+  'r-l|rake': ['rake', 'rakes', 'rack', 'wreck', 'wake'],
+  'r-l|lake': ['lake', 'lakes'],
+  'r-y|rot': ['rot', 'wrought', 'rought', 'rod'],
+  'r-y|yacht': ['yacht', 'yot'],
+  'r-y|rack': ['rack', 'wrack', 'racks', 'rec'],
+  'r-y|yak': ['yak', 'yack'],
+  'r-y|ram': ['ram', 'rams', 'wrom'],
+  'r-y|yam': ['yam', 'yams'],
+  'r-y|ray': ['ray', 'rae', 'raise'],
+  'r-y|yay': ['yay', 'yey', 'yeah'],
+  'r-fr|wrench': ['wrench', 'rench', 'rentch'],
+  'r-fr|french': ['french', 'frenchie'],
+  'r-fr|ridge': ['ridge', 'ridg', 'ridges'],
+  'r-fr|fridge': ['fridge', 'frige'],
+  'r-fr|right': ['right', 'write', 'rite', 'wright'],
+  'r-fr|fright': ['fright', 'frites'],
+  'r-fr|rail': ['rail', 'rale', 'rails'],
+  'r-fr|frail': ['frail'],
+  'r-fr|rock': ['rock', 'rocks', 'rok', 'roc'],
+  'r-fr|frock': ['frock', 'frocks'],
+  'f-fr|fog': ['fog', 'fag', 'fog', 'fogs'],
+  'f-fr|frog': ['frog', 'frogs'],
+  'f-fr|fill': ['fill', 'phil', 'feel', 'field'],
+  'f-fr|frill': ['frill', 'frills'],
+  'f-fr|fee': ['fee', 'phi', 'fees', 'fey'],
+  'f-fr|free': ['free', 'frees'],
+  'f-fr|fight': ['fight', 'fights', 'feit'],
+  'f-fr|fright': ['fright', 'frites'],
+  'f-fr|fail': ['fail', 'fell', 'fails'],
+  'f-fr|frail': ['frail'],
+  'f-fr|fame': ['fame', 'fames'],
+  'f-fr|frame': ['frame', 'frames'],
+};
+
+
 const AVATAR_OPTIONS = ['🦊','🐯','🐼','🐸','🦁','🐵','🐰','🐨','🐶','🐱','🦄','🐲'];
 const DAILY_GOAL = 20;
 
@@ -2127,7 +2213,7 @@ if (SpeechRecognition) {
   recognition.lang = 'en-US';
   recognition.continuous = true;
   recognition.interimResults = true;
-  recognition.maxAlternatives = 5;
+  recognition.maxAlternatives = 10;
 } else {
   $('unsupportedWarning').classList.add('show');
 }
@@ -2164,7 +2250,7 @@ function speakWord(word) {
 function normalizeText(t) {
   return t.toLowerCase().replace(/[^a-z\s]/g, '').trim();
 }
-function matchesWord(transcript, expected) {
+function matchesWord(transcript, expected, categoryId) {
   if (!transcript) return false;
   const normalized = normalizeText(transcript);
   if (!normalized) return false;
@@ -2177,13 +2263,20 @@ function matchesWord(transcript, expected) {
     return matchesPhrase(normalized, expectedTokens);
   }
 
-  // Single-word match (Level 1 + Level 2)
-  const variants = ACCEPTED_VARIANTS[expected] || [expected];
+  // Single-word match. Prefer per-pair variants when we have a category context
+  // (Level 1 minimal pairs); fall back to global accepted variants.
+  let variants = null;
+  if (categoryId) {
+    variants = PER_PAIR_VARIANTS[`${categoryId}|${expected}`];
+  }
+  if (!variants) {
+    variants = ACCEPTED_VARIANTS[expected] || [expected];
+  }
+
   if (variants.includes(normalized)) return true;
   const tokens = normalized.split(/\s+/);
   for (const v of variants) if (tokens.includes(v)) return true;
   // For longer single words (Level 2), also allow a "contains" match
-  // so "she said macaroni" still counts as "macaroni"
   if (expected.length >= 5 && tokens.includes(expected.toLowerCase())) return true;
   return false;
 }
@@ -2237,7 +2330,7 @@ function levenshtein(a, b) {
   }
   return dp[m][n];
 }
-function checkAllAlternatives(event, currentWord, otherWord, startIdx) {
+function checkAllAlternatives(event, currentWord, otherWord, startIdx, categoryId) {
   let bestHeard = '';
   const start = startIdx || 0;
   for (let i = start; i < event.results.length; i++) {
@@ -2245,8 +2338,8 @@ function checkAllAlternatives(event, currentWord, otherWord, startIdx) {
     for (let j = 0; j < result.length; j++) {
       const transcript = result[j].transcript;
       if (!bestHeard && transcript) bestHeard = transcript;
-      if (matchesWord(transcript, currentWord)) return ['target', transcript];
-      if (matchesWord(transcript, otherWord)) return ['distractor', transcript];
+      if (matchesWord(transcript, currentWord, categoryId)) return ['target', transcript];
+      if (otherWord && matchesWord(transcript, otherWord, categoryId)) return ['distractor', transcript];
     }
   }
   return ['unclear', bestHeard];
@@ -2265,8 +2358,8 @@ function startPersistentRecognition() {
     for (let i = event.resultIndex; i < event.results.length; i++) {
       if (event.results[i].isFinal) isFinal = true;
     }
-    const { currentWord, otherWord, startResultIdx } = attemptContext;
-    const [outcome, heard] = checkAllAlternatives(event, currentWord, otherWord, startResultIdx);
+    const { currentWord, otherWord, startResultIdx, categoryId } = attemptContext;
+    const [outcome, heard] = checkAllAlternatives(event, currentWord, otherWord, startResultIdx, categoryId);
 
     if (outcome === 'target') {
       finishAttempt('target', heard);
@@ -2376,7 +2469,8 @@ function startListening() {
 
 function beginAttempt(currentWord, otherWord) {
   attemptListening = true;
-  attemptContext = { currentWord, otherWord, startResultIdx: 0 };
+  const catId = state.currentCategory ? state.currentCategory.id : null;
+  attemptContext = { currentWord, otherWord, startResultIdx: 0, categoryId: catId };
   state.isListening = true;
   $('micBtn').classList.add('listening');
   $('micHint').textContent = '🎙️ Listening...';
